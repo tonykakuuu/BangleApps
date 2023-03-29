@@ -185,8 +185,8 @@ var locales = {
     datePattern: { 0: "%Y/%m/%d", 1: "%y/%m/%d" },
     abmonth: "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
     month: "January,February,March,April,May,June,July,August,September,October,November,December",
-    abday: "SunµMonµTueµ火曜µThuµFriµSat",
-    day: "SundayµMondayµTuesdayµ火曜日µThursdayµFridayµSaturday",
+    abday: "SunµMonµTueµ\u0000,\u0010\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0010\u0000{Áÿ\u0001\u0000ð\u0010\u0011\u0010JA\u0001\u0011\b\u0010\u0011\u0011\tJA\u0001!  \u0010\u0012\u0010\u000f!\u0001ÿBü\u0010\u0010(\t¢\u0001\u0001\u0004@ü\u0010\u0010D\t\"\u0001\u0001\b óü\u0010\u0011\u0001\t\"\u0001\u0001 \b\u0003þ\u001fü\u0000` \u0001\u0001µThuµFriµSat",
+    day: "SundayµMondayµTuesdayµ\u0000,\u0010\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0010\u0000{Áÿ\u0001\u0000ð\u0010\u0011\u0010JA\u0001\u0011\b\u0010\u0011\u0011\tJA\u0001!  \u0010\u0012\u0010\u000f!\u0001ÿBü\u0010\u0010(\t¢\u0001\u0001\u0004@ü\u0010\u0010D\t\"\u0001\u0001\b óü\u0010\u0011\u0001\t\"\u0001\u0001 \b\u0003þ\u001fü\u0000` \u0001\u0001µThursdayµFridayµSaturday",
     // No translation for english...
   },
   "nl_NL": {
