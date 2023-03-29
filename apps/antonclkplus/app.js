@@ -198,12 +198,8 @@ let draw = function() {
       if (calWeek)
         dowcwStr = " #" + ("0" + ISO8601calWeek(date)).slice(-2);
       if (weekDay)
-        dowcwStr = require("locale").dow(date, calWeek ? 1 : 0) + dowcwStr;  //weekDay e.g. Monday or weekDayShort #<calWeek> e.g. Mon #01
-      else //week #01
-        dowcwStr = /*LANG*/"week" + dowcwStr;
-      if (upperCase)
-      dowcwStr = dowcwStr.toUpperCase();
-      g.drawString(dowcwStr, x, y + (vectorFont ? 26 : 16));
+        dowcwStr = require("locale").dow(date, 1);  //weekDay e.g. Monday or weekDayShort #<calWeek> e.g. Mon #01
+      g.drawString(dowcwStr, x, y + 26);
     }
   }
 
