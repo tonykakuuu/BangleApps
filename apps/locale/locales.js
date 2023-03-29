@@ -185,8 +185,8 @@ var locales = {
     datePattern: { 0: "%Y/%m/%d", 1: "%y/%m/%d" },
     abmonth: "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
     month: "January,February,March,April,May,June,July,August,September,October,November,December",
-    abday: "SunµMonµTueµWedµThuµFriµSat",
-    day: "SundayµMondayµTuesdayµWednesdayµThursdayµFridayµSaturday",
+    abday: "SunµMonµTueµ火曜µThuµFriµSat",
+    day: "SundayµMondayµTuesdayµ火曜日µThursdayµFridayµSaturday",
     // No translation for english...
   },
   "nl_NL": {
