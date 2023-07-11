@@ -15,6 +15,31 @@ Graphics.prototype.setFontAntonSmall = function(scale) {
 const SETTINGSFILE = "antonclk.json";
 const isBangle1 = (process.env.HWVERSION == 1);
 
+const jpwkday = [
+  "\u0000)\u000f\u0000ÿ=àÿÀCÂ\u0010@`!)H 0\u0010\u0010\u0018\bJR\b\f\u0004$H\u0004\u0007þ\u001eB\u0003ÿ\u0001\tÁ\u0001Ñ\u0000ÀBOð@`!$@ 0\u0010óü\u0010\u0018\bI\u0010\b\u000fü\u0000ÿþ\u0002\u0000@\u0002\u0002",
+  "\u0000*\u0010\u0000\u001fð\u0000\u0000\u0000\u0004\u0004\u0007¼\u001fñ\u0001<!\u0004\u0004@IJA\u0001\u0010\u0012JP@Gü¤\u0010\u0011\u0001$H\u0004\u0004@O!\u0001ÿ\u0010\u0012_ð@Gü \u0010\u0011\u0001$ÿ\u0004\u0004@I\"\u0001\u0001 \u0013Ïð@H\u0004 \u0010\u0014\u0005\u0000ÿþ\u0000 \u0001\u0001",
+  "\u0000,\u0010\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0010\u0000{Áÿ\u0001\u0000ð\u0010\u0011\u0010JA\u0001\u0011\b\u0010\u0011\u0011\tJA\u0001!  \u0010\u0012\u0010\u000f!\u0001ÿBü\u0010\u0010(\t¢\u0001\u0001\u0004@ü\u0010\u0010D\t\"\u0001\u0001\b óü\u0010\u0011\u0001\t\"\u0001\u0001 \b\u0003þ\u001fü\u0000` \u0001\u0001",
+  "\u0000,\u0010\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0010\u0000{Áÿ\u0001\u0000ð\u0010\u0010\u0010JA\u0001\u0001\b\u0010\u0017Ù\tJA\u0001\u0005  \u0010\u0010\u000f!\u0001ÿ\t@ü\u0010\u0011\u0012\t¢\u0001\u0001\u0011\u0010ü\u0010\u0012\u0010\"\u0001\u0001A\u0006óü\u0010\u0018\u0010\t\"\u0001\u0001\u0005\u0000\u0003þ\u001fð \u0000 \u0001\u0001",
+  "\u0000,\u0010\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0010\u0000{Áÿ\u0001\u0000ð\u0010\u0010\u0010\tJA\u0001ü\u0010\u00108\tJA\u0001\u0005@ \u0010\u0010T\u000f!\u0001ÿ\t ü\u0010\u0011\u0011\t¢\u0001\u0001!\bü\u0010\u0014\u0010I\"\u0001\u0001\u0002óü\u0010\u0010\u0010\t\"\u0001\u0001\u0001\u0000\u0003þ\u001fð\u0010\u0000 \u0001\u0001",
+  "\u0000,\u0010\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0010\u0000{Áÿ\u0002ð\u0010\u0010D\tJA\u0001\b \u0010\u0011\u0001\tJA\u0001/è \u0010\u001c\u0010o!\u0001ÿ\u0001\u0000ü\u0010\u0013ÿ¢\u0001\u0001\u0001\u0000ü\u0010\u0011\u0011\t\"\u0001\u0001\t\u0010óü\u0010\u0010\t\"\u0001\u0001ÿþ\u0003þ\u001fð\u0000\u0000 \u0001\u0001",
+  "\u0000,\u0010\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0010\u0000{Áÿ\u0001\u0000ð\u0010\u0010\u0010\tJA\u0001\u0001\u0000\u0010\u0010\u0010\tJA\u0001?ø \u0010\u0010\u0010\u000f!\u0001ÿ\u0001\u0000ü\u0010\u0010\u0010\t¢\u0001\u0001\u0001\u0000ü\u0010\u0010\u0010\t\"\u0001\u0001\u0001\u0000óü\u0010\u0010\u0010\t\"\u0001\u0001ÿþ\u0003þ\u001fð\u0000\u0000 \u0001\u0001"
+];
+const jpmonth = [
+  "\u0000\u001e\u0010\u0000\u0000\u0000\u0007ü\u0000\u0000\u0010\u0010\u0000\u0000@@\u0000\u0001\u0001\u0000\u0000\u0004\u0004\u0000\u0000\u001fð\u0000\u0000@ÿ\u0001\u0000\u0000\u0004\u0004\u0000\u0000\u001fð\u0000\u0000@@\u0000\u0001\u0001\u0000\u0000\b\u0004\u0000\u0000 \u0010\u0000\u0001\u0001@\u0000\b\u0002",
+  "\u0000\u001e\u0010\u0000\u0000\u0000\u0007ü\u0000\u0000\u0010\u0010\u0000\u0000@Oþ\u0001\u0001\u0000\u0000\u0004\u0004\u0000\u0000\u001fð\u0000\u0000@@\u0000\u0001\u0001\u0000\u0000\u0004\u0004\u0000\u0000\u001fð\u0000\u0000@@\u0000\u0001\u0001ÿþ\b\u0004\u0000\u0000 \u0010\u0000\u0001\u0001@\u0000\b\u0002",
+  "\u0000\u001e\u0010\u0000\u0000\u0000\u0007ü\u0000\u0000\u0010\u0017ÿÀ@@\u0000\u0001\u0001\u0000\u0000\u0004\u0004\u0000\u0000\u001fð\u0000\u0000@Oþ\u0001\u0001\u0000\u0000\u0004\u0004\u0000\u0000\u001fð\u0000\u0000@@\u0000\u0001\u0001\u0000\u0000\b\u0007ÿø \u0010\u0000\u0001\u0001@\u0000\b\u0002",
+  "\u0000\u001d\u0010\u0000\u0000\u0000\u000fø\u0000\u0000@þ\u0002\u0003\u0011\u0010\u0010\u0018ÄD\u0007þ\"  1\u0011\u0001\u0001\b\fÀè\u0002\u0002\u0003\u0010\u0010\u0018\u0000\u0000ÿü\b\u0006\u0000  \u0000\b\u0002",
+  "\u0000\u001e\u0010\u0000\u0000\u0000\u0007ýÿð\u0010\u0010 \u0000@@\u0001\u0001\u0002\u0000\u0004\u0004\b\u0000\u001fóÿ\u0000@A\u0004\u0001\u0001\u0004\u0010\u0004\u0004\u0010@\u001fðA\u0000@B\u0004\u0001\u0001\b\u0010\b\u0004 @ \u001fÿá\u0001@\u0000\b\u0002",
+  "\u0000\u001e\u0010\u0000\u0002\u0000\u0007ü\u0004\u0000\u0010\u0010\b\u0000@@ \u0001\u0001\u0000\u0000\u0004\u0007ÿø\u001fð\u0000\u0000@@\u0000\u0001\u0001\u0004@\u0004\u0004\u0010\u001fð\u0000@B\u0002\u0001\u0001\u0010\b\b\u0004\u0010 \u0014\u0000A\u0001@\u0000\b\u0002",
+  "\u0000\u001e\u0010\u0000\u0002\u0000\u0007ü\b\u0000\u0010\u0010 \u0000@@\u0001\u0001\u0002\u0000\u0004\u0004\bð\u001fð|\u0000@~\u0001\u0001\u0002\u0000\u0004\u0004\b\u0000\u001fð \u0000@@\u0001\u0001\u0002\u0004\b\u0004\b\u0010 \u0010\u001fÁ\u0001@\u0000\b\u0002",
+  "\u0000\u001d\u0010\u0000\u0000\u0000\u000fø\u0004\u0000@B \u0002\u0002\u0011\u0000\u0010\u0010\u0000@\u0007ü\"\u0000 !\b\u0001\u0001\u0010@\b\b\u0000Ä\b\u0002\u0002@@\u0010\u0012\u0001\u0001\u0000 \b\b\u0005\u0000 °\u0000\u0002",
+  "\u0000\u001e\u0010\u0000\u0004\u0000\u0007ü\u0010\u0000\u0010\u0010@\u0000@A\u0000\u0001\u0001à\u0004\u0004\u0010\u001fðB\u0000@A\b\u0001\u0001\b \u0004\u0004 \u001fð\u0000@D\b\u0001\u0010\"\b\u0004 \u0014\u0001á\u0001`\u0000\b\u0002",
+  "\u0000\u001e\u0010\u0000\u0001\u0000\u0007ü\u0004\u0000\u0010\u0010\u0010\u0000@@@\u0001\u0001\u0001\u0000\u0004\u0004\u0004\u0000\u001fÿÿà@@@\u0001\u0001\u0001\u0000\u0004\u0004\u0004\u0000\u001fð\u0010\u0000@@@\u0001\u0001\u0001\u0000\b\u0004\u0004\u0000 \u0010\u0010\u0001\u0001@@\b\u0002",
+  "\u0000.\u0010\u0000\u0001\u0000\u0000\u0000\u0007ü\u0004\u0000\u0000\u0000\u0010\u0010\u0010\u0000\u0000\u0000@@@\u0000\u0000\u0001\u0001\u0001\u0000\u0000\u0000\u0004\u0004\u0004\u0000\u0000\u0000\u001fÿÿà\u0000\u0000@@@?ÿ\u0001\u0001\u0000\u0000\u0000\u0004\u0004\u0004\u0000\u0000\u0000\u001fð\u0010\u0000\u0000\u0000@@@\u0000\u0000\u0001\u0001\u0001\u0000\u0000\u0000\b\u0004\u0004\u0000\u0000\u0000 \u0010\u0010\u0000\u0000\u0001\u0001@@\u0000\u0000\b\u0002",
+  "\u0000.\u0010\u0000\u0001\u0000\u0000\u0000\u0007ü\u0004\u0000\u0000\u0000\u0010\u0010\u0010\u0000\u0000\u0000@@@\u000fþ\u0001\u0001\u0001\u0000\u0000\u0000\u0004\u0004\u0004\u0000\u0000\u0000\u001fÿÿà\u0000\u0000@@@\u0000\u0000\u0001\u0001\u0001\u0000\u0000\u0000\u0004\u0004\u0004\u0000\u0000\u0000\u001fð\u0010\u0000\u0000\u0000@@@\u0000\u0000\u0001\u0001\u0001\u0000ÿþ\b\u0004\u0004\u0000\u0000\u0000 \u0010\u0010\u0000\u0000\u0001\u0001@@\u0000\u0000\b\u0002"
+];
+
+
 // variables defined from settings
 let secondsMode;
 let secondsColoured;
@@ -185,25 +210,86 @@ let draw = function() {
   } else { // No seconds screen: Show date and optionally day of week
     y += (vectorFont ? 50 : (secondsMode !== "Never") ? 52 : 40);
     var dateStr = (dateOnMain === "ISO8601" ? isoStr(date) : require("locale").date(date, (dateOnMain === "Long" ? 0 : 1)));
-    if (upperCase)
-      dateStr = dateStr.toUpperCase();
+    
+    if (dateStr.substring(0, 3) == "Jan") {
+      dateStr = jpmonth[1] + dateStr.substring(3);
+    }
+    if (dateStr.substring(0, 3) == "Feb") {
+      dateStr = jpmonth[2] + dateStr.substring(3);
+    }
+    if (dateStr.substring(0, 3) == "Mar") {
+      dateStr = jpmonth[3] + dateStr.substring(3);
+    }
+    if (dateStr.substring(0, 3) == "Apr") {
+      dateStr = jpmonth[4] + dateStr.substring(3);
+    }
+    if (dateStr.substring(0, 3) == "May") {
+      dateStr = jpmonth[5] + dateStr.substring(3);
+    }
+    if (dateStr.substring(0, 3) == "Jun") {
+      dateStr = jpmonth[6] + dateStr.substring(3);
+    }
+    if (dateStr.substring(0, 3) == "Jul") {
+      dateStr = jpmonth[7] + dateStr.substring(3);
+    }
+    if (dateStr.substring(0, 3) == "Aug") {
+      dateStr = jpmonth[8] + dateStr.substring(3);
+    }
+    if (dateStr.substring(0, 3) == "Sep") {
+      dateStr = jpmonth[9] + dateStr.substring(3);
+    }
+    if (dateStr.substring(0, 3) == "Oct") {
+      dateStr = jpmonth[10] + dateStr.substring(3);
+    }
+    if (dateStr.substring(0, 3) == "Nov") {
+      dateStr = jpmonth[11] + dateStr.substring(3);
+    }
+    if (dateStr.substring(0, 3) == "Dec") {
+      dateStr = jpmonth[12] + dateStr.substring(3);
+    }
+
     g.setFontAlign(0, 0);
     if (vectorFont)
       g.setFont("Vector", 24);
     else
       g.setFont("6x8", 2);
-    g.drawString(dateStr, x, y);
+    g.drawString(dateStr, x, y+10);
     if (calWeek || weekDay) {
       var dowcwStr = "";
       if (calWeek)
         dowcwStr = " #" + ("0" + ISO8601calWeek(date)).slice(-2);
-      if (weekDay)
-        dowcwStr = require("locale").dow(date, calWeek ? 1 : 0) + dowcwStr;  //weekDay e.g. Monday or weekDayShort #<calWeek> e.g. Mon #01
+      if (weekDay) 
+        {
+          if (require("locale").dow(date,0) == "Sunday") {
+            tmpdt = jpwkday[0];
+          }
+          if (require("locale").dow(date,0) == "Monday") {
+            tmpdt = jpwkday[1];
+          }
+          else if (require("locale").dow(date,0) == "Tuesday") {
+            tmpdt = jpwkday[2];
+          }
+          else if (require("locale").dow(date,0) == "Wednesday") {
+            tmpdt = jpwkday[3];
+          }
+          else if (require("locale").dow(date,0) == "Thursday") {
+            tmpdt = jpwkday[4];
+          }
+          else if (require("locale").dow(date,0) == "Friday") {
+            tmpdt = jpwkday[5];
+          }
+          else if (require("locale").dow(date,0) == "Saturday") {
+            tmpdt = jpwkday[6];
+          }
+          dowcwStr = tmpdt + dowcwStr;
+        } 
+
+        //weekDay e.g. Monday or weekDayShort #<calWeek> e.g. Mon #01
       else //week #01
         dowcwStr = /*LANG*/"week" + dowcwStr;
       if (upperCase)
       dowcwStr = dowcwStr.toUpperCase();
-      g.drawString(dowcwStr, x, y + (vectorFont ? 26 : 16));
+      g.drawString(dowcwStr, x, y+15 + (vectorFont ? 26 : 16));
     }
   }
 
