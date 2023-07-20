@@ -263,7 +263,7 @@ let draw = function() {
         {
           for (let i=0 i < 7; i++)
             {
-              if (require("locale").dow(date,i) == require("date_utils").dow(i)) {
+              if (require("locale").dow(date,1) == require("date_utils").dow(i)) {
                 tmpdt = jpwkday[i];
               }
             }
