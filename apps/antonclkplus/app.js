@@ -261,29 +261,15 @@ let draw = function() {
         dowcwStr = " #" + ("0" + ISO8601calWeek(date)).slice(-2);
       if (weekDay) 
         {
-          if (require("locale").dow(date,0) == require("date_utils").dow(0)) {
-            tmpdt = jpwkday[0];
-          }
-          if (require("locale").dow(date,0) == require("date_utils").dow(1)) {
-            tmpdt = jpwkday[1];
-          }
-          else if (require("locale").dow(date,0) == require("date_utils").dow(2)) {
-            tmpdt = jpwkday[2];
-          }
-          else if (require("locale").dow(date,0) == require("date_utils").dow(3)) {
-            tmpdt = jpwkday[3];
-          }
-          else if (require("locale").dow(date,0) == require("date_utils").dow(4)) {
-            tmpdt = jpwkday[4];
-          }
-          else if (require("locale").dow(date,0) == require("date_utils").dow(5)) {
-            tmpdt = jpwkday[5];
-          }
-          else if (require("locale").dow(date,0) == require("date_utils").dow(6)) {
-            tmpdt = jpwkday[6];
+          for (let i=0 i < 7; i++)
+            {
+              if (require("locale").dow(date,i) == require("date_utils").dow(i)) {
+                tmpdt = jpwkday[i];
+              }
+            }
           }
           dowcwStr = tmpdt + dowcwStr;
-        } 
+      } 
 
         //weekDay e.g. Monday or weekDayShort #<calWeek> e.g. Mon #01
       else //week #01
