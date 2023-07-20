@@ -8,6 +8,13 @@
         "Wednesday": "水曜日",
         "Thursday": "木曜日",
         "Friday": "金曜日",
-        "Saturday": "土曜日"
+        "Saturday": "土曜日",
+        "Sunday_short": "日",
+        "Monday_short": "月",
+        "Tuesday_short": "火",
+        "Wednesday_short": "水",
+        "Thursday_short": "木",
+        "Friday_short": "金",
+        "Saturday_short": "土"
     }
 }
