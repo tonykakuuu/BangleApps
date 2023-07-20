@@ -15,6 +15,7 @@ Graphics.prototype.setFontAntonSmall = function(scale) {
 const SETTINGSFILE = "antonclk.json";
 const isBangle1 = (process.env.HWVERSION == 1);
 
+
 const jpwkday = [
   "\u0000)\u000f\u0000ÿ=àÿÀCÂ\u0010@`!)H 0\u0010\u0010\u0018\bJR\b\f\u0004$H\u0004\u0007þ\u001eB\u0003ÿ\u0001\tÁ\u0001Ñ\u0000ÀBOð@`!$@ 0\u0010óü\u0010\u0018\bI\u0010\b\u000fü\u0000ÿþ\u0002\u0000@\u0002\u0002",
   "\u0000*\u0010\u0000\u001fð\u0000\u0000\u0000\u0004\u0004\u0007¼\u001fñ\u0001<!\u0004\u0004@IJA\u0001\u0010\u0012JP@Gü¤\u0010\u0011\u0001$H\u0004\u0004@O!\u0001ÿ\u0010\u0012_ð@Gü \u0010\u0011\u0001$ÿ\u0004\u0004@I\"\u0001\u0001 \u0013Ïð@H\u0004 \u0010\u0014\u0005\u0000ÿþ\u0000 \u0001\u0001",
