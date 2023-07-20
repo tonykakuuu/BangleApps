@@ -261,25 +261,25 @@ let draw = function() {
         dowcwStr = " #" + ("0" + ISO8601calWeek(date)).slice(-2);
       if (weekDay) 
         {
-          if (require("locale").dow(date,0) == "Sunday") {
+          if (require("locale").dow(date,0) == require("date_utils").dow(0)) {
             tmpdt = jpwkday[0];
           }
-          if (require("locale").dow(date,0) == "Monday") {
+          if (require("locale").dow(date,0) == require("date_utils").dow(1)) {
             tmpdt = jpwkday[1];
           }
-          else if (require("locale").dow(date,0) == "Tuesday") {
+          else if (require("locale").dow(date,0) == require("date_utils").dow(2)) {
             tmpdt = jpwkday[2];
           }
-          else if (require("locale").dow(date,0) == "Wednesday") {
+          else if (require("locale").dow(date,0) == require("date_utils").dow(3)) {
             tmpdt = jpwkday[3];
           }
-          else if (require("locale").dow(date,0) == "Thursday") {
+          else if (require("locale").dow(date,0) == require("date_utils").dow(4)) {
             tmpdt = jpwkday[4];
           }
-          else if (require("locale").dow(date,0) == "Friday") {
+          else if (require("locale").dow(date,0) == require("date_utils").dow(5)) {
             tmpdt = jpwkday[5];
           }
-          else if (require("locale").dow(date,0) == "Saturday") {
+          else if (require("locale").dow(date,0) == require("date_utils").dow(6)) {
             tmpdt = jpwkday[6];
           }
           dowcwStr = tmpdt + dowcwStr;
