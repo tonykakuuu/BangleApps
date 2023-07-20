@@ -261,15 +261,16 @@ let draw = function() {
         dowcwStr = " #" + ("0" + ISO8601calWeek(date)).slice(-2);
       if (weekDay) 
         {
-          for (let i=0 i < 7; i++)
+          for (let i=0; i < 7; i++)
             {
               if (require("locale").dow(date,1) == require("date_utils").dow(i)) {
                 tmpdt = jpwkday[i];
               }
             }
-          }
-          dowcwStr = tmpdt + dowcwStr;
-      } 
+        dowcwStr = tmpdt + dowcwStr;
+        }
+          
+      
 
         //weekDay e.g. Monday or weekDayShort #<calWeek> e.g. Mon #01
       else //week #01
