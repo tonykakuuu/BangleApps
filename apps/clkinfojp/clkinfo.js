@@ -37,7 +37,7 @@
         get : () => {
           return {
             text : datestring,
-            img : atob("")
+            img : atob("GBjC////AADve773VWmmmmlVVW22nnlVVbLL445VVwAAAADVWAAAAAAlrAAAAAA6sAAAAAAOWAAAAAAlrAD//wA6sANVVcAOWANVVcAlrANVVcA6rANVVcA6WANVVcAlsANVVcAOrAD//wA6WAAAAAAlsAAAAAAOrAAAAAA6WAAAAAAlVwAAAADVVbLL445VVW22nnlVVWmmmmlV")
           };
         },
         show : function() {},
