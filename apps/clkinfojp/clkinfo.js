@@ -30,25 +30,13 @@
   day = date.getDate(date);
   dow = date.getDay(date);
 
-  for (let i=0; i < 7; i++)
-    {
-      if (require("locale").dow(date,0) == require("date_utils").dow(i)  ) {
-        datestring = jpwkday[i];
-      }
-    }
-
-  year = jpchars[7] + "  " + year;
-  month = jpchars[1] + "  " + month;
-  day = jpchars[0] + "  " + day;
-  datestring = year + month + " " + day + " (" + wkday + " )";
-
   return {
     name: "Bangle",
     items: [
       { name : "JP",
         get : () => {
           return {
-            text : datestring
+            text : datestring,
             img : atob("")
           };
         },
