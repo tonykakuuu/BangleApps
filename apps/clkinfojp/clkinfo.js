@@ -30,6 +30,9 @@
   day = date.getDate(date);
   dow = date.getDay(date);
 
+  datestring = year + month + " " + day + " (" + wkday + " )";
+
+
   return {
     name: "Bangle",
     items: [
