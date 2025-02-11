@@ -1,0 +1,16 @@
+{
+  "id": "jpclock",
+  "name": "jp Clock",
+  "version": "0.1",
+  "description": "A simple clock with a Japanese weekday feature",
+  "icon": "app.png",
+  "screenshots": [{"url":"screenshot.png"}],
+  "type": "clock",
+  "tags": "clock",
+  "supports": ["BANGLEJS2"],
+  "allow_emulator": true,
+  "storage": [
+    {"name":"jpclock.app.js","url":"app.js"},
+    {"name":"jpclock.img","url":"app-icon.js","evaluate":true}
+  ]
+}
