@@ -9,7 +9,6 @@ function drawWatchface() {
   var hours = date.getHours();
   var minutes = date.getMinutes();
   var day = date.getDate();
-  var wkday = date.getDay();
   var month = date.getMonth() + 1; // Months are 0-indexed
   var year = date.getFullYear();
 
