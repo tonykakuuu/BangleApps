@@ -1,5 +1,3 @@
-// Clear the screen once at the beginning
-g.clear();
 require("Font8x16").add(Graphics);
 
 // Function to draw the watchface
@@ -12,14 +10,12 @@ function drawWatchface() {
   var month = date.getMonth() + 1; // Months are 0-indexed
   var year = date.getFullYear();
 
-  // Clear the screen
-  g.clear();
-
   // Draw the time in the middle of the screen
   var timeString = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
   var timeWidth = g.stringWidth(timeString);
   var timeX = (g.getWidth() - timeWidth) / 2+10;
   var timeY = g.getHeight() / 2;
+  g.reset().clearRect(Bangle.appRect);
   g.setFontAlign(0, 0); // Center alignment
   g.setFontVector(60); // Large font for time
   g.drawString(timeString, timeX, timeY);
@@ -87,14 +83,21 @@ function drawWatchface() {
     g.drawImage(jpwkday[dows[j]], dayX-5, dayY-22);
     g.drawString(days[j], dayX, dayY);
   }
+
+  if (drawTimeout) clearTimeout(drawTimeout);
+  drawTimeout = setTimeout(function() {
+    drawTimeout = undefined;
+    draw();
+  }, 60000 - (Date.now() % 60000));
 }
 
-// Update the watchface every minute
-setInterval(drawWatchface, 60000);
-
-// Draw the watchface immediately
-drawWatchface();
-
-// Load widgets if needed
+Bangle.setUI({
+  mode : "clock",
+  remove : function() {
+    if (drawTimeout) clearTimeout(drawTimeout);
+    drawTimeout = undefined;
+    delete Graphics.prototype.setFontAnton;
+  }});
 Bangle.loadWidgets();
-Bangle.drawWidgets();
+drawWatchface();
+setTimeout(Bangle.drawWidgets,0);
