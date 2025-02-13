@@ -2,7 +2,6 @@ require("Font8x16").add(Graphics);
 
 // Function to draw the watchface
 function drawWatchface() {
-  let drawTimeout;
   // Get the current date and time
   var date = new Date();
   var hours = date.getHours();
@@ -84,21 +83,11 @@ function drawWatchface() {
     g.drawImage(jpwkday[dows[j]], dayX-5, dayY-22);
     g.drawString(days[j], dayX, dayY);
   }
-
-  if (drawTimeout) clearTimeout(drawTimeout);
-  drawTimeout = setTimeout(function() {
-    drawTimeout = undefined;
-    drawWatchface();
-  }, 60000 - (Date.now() % 60000));
 }
 
 Bangle.setUI({
   mode : "clock",
-  remove : function() {
-    if (drawTimeout) clearTimeout(drawTimeout);
-    drawTimeout = undefined;
-    delete Graphics.prototype.setFontAnton;
-  }});
+  });
 Bangle.loadWidgets();
 drawWatchface();
 setTimeout(Bangle.drawWidgets,0);
