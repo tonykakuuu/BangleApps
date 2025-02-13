@@ -2,6 +2,7 @@ require("Font8x16").add(Graphics);
 
 // Function to draw the watchface
 function drawWatchface() {
+  let drawTimeout;
   // Get the current date and time
   var date = new Date();
   var hours = date.getHours();
@@ -87,7 +88,7 @@ function drawWatchface() {
   if (drawTimeout) clearTimeout(drawTimeout);
   drawTimeout = setTimeout(function() {
     drawTimeout = undefined;
-    draw();
+    drawWatchface();
   }, 60000 - (Date.now() % 60000));
 }
 
