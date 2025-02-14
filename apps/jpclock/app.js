@@ -14,10 +14,10 @@ let queueDraw = function() {
 let updateState = function() {
   if (Bangle.isLCDOn()) {
     if (Bangle.isLocked()){
-      secondsScreen = true;
+      //secondsScreen = true;
       queueMillis = 1000;
     } else {
-      secondsScreen = false;
+      //secondsScreen = false;
       queueMillis = 60000;
 
     }
@@ -33,8 +33,6 @@ let updateState = function() {
 function drawWatchface() {
   // Get the current date and time
   var date = new Date();
-  var hours = date.getHours();
-  var minutes = date.getMinutes();
   var day = date.getDate();
   var month = date.getMonth() + 1; // Months are 0-indexed
   var year = date.getFullYear();
