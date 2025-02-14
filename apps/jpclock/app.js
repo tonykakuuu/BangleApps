@@ -1,5 +1,18 @@
 require("Font8x16").add(Graphics);
 
+
+{
+let drawTimeout;
+let queueMillis = 1000;
+let queueDraw = function() {
+  if (drawTimeout) clearTimeout(drawTimeout);
+  drawTimeout = setTimeout(function() {
+    drawTimeout = undefined;
+    drawWatchface();
+  }, queueMillis - (Date.now() % queueMillis));
+}
+
+
 // Function to draw the watchface
 function drawWatchface() {
   // Get the current date and time
@@ -83,11 +96,29 @@ function drawWatchface() {
     g.drawImage(jpwkday[dows[j]], dayX-5, dayY-22);
     g.drawString(days[j], dayX, dayY);
   }
+
+  queueDraw();
 }
 
+// Init the settings of the app
+loadSettings();
+// Clear the screen once, at startup
+g.clear();
+// Set dynamic state and perform initial drawing
+updateState();
+// Register hooks for LCD on/off event and screen lock on/off event
+Bangle.on('lcdPower', updateState);
+Bangle.on('lock', updateState);
 Bangle.setUI({
   mode : "clock",
-  });
+  remove : function() {
+    // Called to unload all of the clock app
+    Bangle.removeListener('lcdPower', updateState);
+    Bangle.removeListener('lock', updateState);
+    if (drawTimeout) clearTimeout(drawTimeout);
+    drawTimeout = undefined;
+  }});
+// Load widgets
 Bangle.loadWidgets();
-drawWatchface();
-setTimeout(Bangle.drawWidgets,0);
+Bangle.drawWidgets();
+}
