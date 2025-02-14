@@ -10,7 +10,22 @@ let queueDraw = function() {
     drawTimeout = undefined;
     drawWatchface();
   }, queueMillis - (Date.now() % queueMillis));
-}
+};
+let updateState = function() {
+  if (Bangle.isLCDOn()) {
+    if (Bangle.isLocked()){
+      secondsScreen = true;
+      queueMillis = 1000;
+    } else {
+      secondsScreen = false;
+      queueMillis = 60000;
+    }
+    drawWatchface(); // draw immediately, queue redraw
+  } else { // stop draw timer
+    if (drawTimeout) clearTimeout(drawTimeout);
+    drawTimeout = undefined;
+  }
+};
 
 
 // Function to draw the watchface
@@ -26,7 +41,7 @@ function drawWatchface() {
   // Draw the time in the middle of the screen
   var timeString = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
   var timeWidth = g.stringWidth(timeString);
-  var timeX = (g.getWidth() - timeWidth) / 2+10;
+  var timeX = (g.getWidth() - timeWidth) / 2+20;
   var timeY = g.getHeight() / 2;
   g.reset().clearRect(Bangle.appRect);
   g.setFontAlign(0, 0); // Center alignment
@@ -100,8 +115,6 @@ function drawWatchface() {
   queueDraw();
 }
 
-// Init the settings of the app
-loadSettings();
 // Clear the screen once, at startup
 g.clear();
 // Set dynamic state and perform initial drawing
