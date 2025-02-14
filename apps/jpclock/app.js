@@ -14,11 +14,12 @@ let queueDraw = function() {
 let updateState = function() {
   if (Bangle.isLCDOn()) {
     if (Bangle.isLocked()){
-      //secondsScreen = true;
+      secondsScreen = true;
       queueMillis = 1000;
     } else {
-      //secondsScreen = false;
+      secondsScreen = false;
       queueMillis = 60000;
+
     }
     drawWatchface(); // draw immediately, queue redraw
   } else { // stop draw timer
@@ -39,14 +40,15 @@ function drawWatchface() {
   var year = date.getFullYear();
 
   // Draw the time in the middle of the screen
-  var timeString = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
-  var timeWidth = g.stringWidth(timeString);
-  var timeX = (g.getWidth() - timeWidth) / 2+20;
-  var timeY = g.getHeight() / 2;
+
   g.reset().clearRect(Bangle.appRect);
   g.setFontAlign(0, 0); // Center alignment
   g.setFontVector(60); // Large font for time
-  g.drawString(timeString, timeX, timeY);
+  var timeString = require("locale").time(date, 1);
+  var timeWidth = g.stringWidth(timeString);
+  var jpclX = (g.getWidth() - timeWidth) / 2+85; //this sucks, actually
+  var jpclY = g.getHeight() / 2;
+  g.drawString(timeString, jpclX, jpclY);
 
   let jpwkday = [];
   let jpwkday_strings = [
@@ -113,6 +115,7 @@ function drawWatchface() {
   }
 
   queueDraw();
+  console.log(jpclX, timeWidth);
 }
 
 // Clear the screen once, at startup
