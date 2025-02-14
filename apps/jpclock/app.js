@@ -14,10 +14,10 @@ let queueDraw = function() {
 let updateState = function() {
   if (Bangle.isLCDOn()) {
     if (Bangle.isLocked()){
-      secondsScreen = true;
+      //secondsScreen = true;
       queueMillis = 1000;
     } else {
-      secondsScreen = false;
+      //secondsScreen = false;
       queueMillis = 60000;
     }
     drawWatchface(); // draw immediately, queue redraw
