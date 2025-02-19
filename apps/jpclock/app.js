@@ -15,7 +15,7 @@ let updateState = function() {
   if (Bangle.isLCDOn()) {
     if (Bangle.isLocked()){
       //secondsScreen = true;
-      queueMillis = 1000;
+      queueMillis = 60000;
     } else {
       //secondsScreen = false;
       queueMillis = 60000;
