@@ -1,6 +1,5 @@
 require("Font8x16").add(Graphics);
 
-
 {
 let drawTimeout;
 let queueMillis = 1000;
@@ -86,6 +85,8 @@ function drawWatchface() {
     var dayX = j * dayWidth + dayWidth / 2+1;
     if (days[j] === day) {
       g.setColor('#80FF00'); // Accent for the current day
+    } else if (dows[j] === 0 || dows[j] === 6) {
+      g.setColor('#FF0000'); // Red for weekend days (Saturday and Sunday)
     } else {
       g.setColor(g.theme.bg); // White for other days
     }
@@ -113,7 +114,6 @@ function drawWatchface() {
   }
 
   queueDraw();
-  console.log(jpclX, timeWidth);
 }
 
 // Clear the screen once, at startup
