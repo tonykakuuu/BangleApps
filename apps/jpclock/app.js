@@ -86,7 +86,7 @@ function drawWatchface() {
     if (days[j] === day) {
       g.setColor('#80FF00'); // Accent for the current day
     } else if (dows[j] === 0 || dows[j] === 6) {
-      g.setColor('#FF0000'); // Red for weekend days (Saturday and Sunday)
+      g.setColor('#FF8000'); // Red for weekend days (Saturday and Sunday)
     } else {
       g.setColor(g.theme.bg); // White for other days
     }
