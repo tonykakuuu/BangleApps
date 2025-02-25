@@ -27,12 +27,12 @@ function drawMenu() {
 function drawImage(fileName) {
     E.showMenu();   // Remove the menu to prevent it from breaking things
     setTimeout(() => { Bangle.on('touch', drawMenu); }, 300);   // Touch the screen to go back to the image menu (300ms timeout to allow user to lift finger)
-    Bangle.setOptions({             // Disable display power saving while showing the image
+/*    Bangle.setOptions({             // Disable display power saving while showing the image
         lockTimeout: 0,
         lcdPowerTimeout: 0,
         backlightTimeout: 0
     });
-    Bangle.setLCDBrightness(1);     // Full brightness
+    Bangle.setLCDBrightness(1);     // Full brightness*/
 
     image = eval(storage.read(fileName));   // Sadly, the only reasonable way to do this
     g.clear().reset().setBgColor(0).setColor("#fff").drawImage(image, 88, 88, { rotate: angle });

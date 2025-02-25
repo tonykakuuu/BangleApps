@@ -13,12 +13,9 @@ let queueDraw = function() {
 let updateState = function() {
   if (Bangle.isLCDOn()) {
     if (Bangle.isLocked()){
-      //secondsScreen = true;
       queueMillis = 60000;
     } else {
-      //secondsScreen = false;
-      queueMillis = 60000;
-
+      queueMillis = 1000;
     }
     drawWatchface(); // draw immediately, queue redraw
   } else { // stop draw timer
@@ -35,6 +32,7 @@ function drawWatchface() {
   var day = date.getDate();
   var month = date.getMonth() + 1; // Months are 0-indexed
   var year = date.getFullYear();
+  var seconds = date.getSeconds();
 
   // Draw the time in the middle of the screen
 
@@ -113,6 +111,9 @@ function drawWatchface() {
     g.drawString(days[j], dayX, dayY);
   }
 
+  if (!Bangle.isLocked()) {
+    drawAgumon();
+  }
   queueDraw();
 }
 
