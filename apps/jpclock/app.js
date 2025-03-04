@@ -74,8 +74,8 @@ function alternateFrame() {
 }
 
 // Set up timers
-setInterval(updatePosition, 500); // Update position every 50ms
-setInterval(alternateFrame, 500); // Alternate frames every 500ms
+//setInterval(updatePosition, 500); // Update position every 50ms
+//setInterval(alternateFrame, 500); // Alternate frames every 500ms
 
 //ACTUAL WATCH
 
@@ -125,6 +125,8 @@ function drawWatchface() {
   if (!Bangle.isLocked()) {
     g.setFontVector(20); 
     g.drawString(seconds.toString().padStart(2, '0'), jpclX + timeWidth / 2 -15, jpclY - 40);
+    updatePosition();
+    alternateFrame();
     drawSprite();
   }
 
