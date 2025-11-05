@@ -166,6 +166,75 @@ function drawWatchface() {
     }
   g.drawString(AMPM, jpclX+60, jpclY-38);
   }
+   let jpchar = [];
+  let jpchar_strings = [
+    { width: 10, data: "AB/mGYZhn+YZhmGf4A==" },//WEEKDAYS
+    { width: 10, data: "AA/jGP4xjGP4xmGY4A==" },
+    { width: 10, data: "DAMAzbbNAwDgbDG4MA="  },
+    { width: 10, data: "DAMAz9Y1DUbZs8zHAA==" },
+    { width: 10, data: "DAMAw/8MB4NRtszDAA==" },
+    { width: 10, data: "AAeDMf7M3+DBtjU/8A==" },
+    { width: 10, data: "DAMAwf4MAwDAMAw/8A==" },
+    { width: 10, data: "AA/jGP4xjGP4xmGY4A==" },//TSUKI
+    { width: 10, data: "MAwD/ZjfjYNj/wYBgA==" }//TOSHI
+  ];
+  for (let i = 0; i < jpchar_strings.length; i++) {
+    jpchar.push({
+      width: jpchar_strings[i].width,
+      height: 10,
+      bpp: 1,
+      transparent: 0,
+      palette: new Uint16Array([65535, 0]),
+      buffer: atob(jpchar_strings[i].data)
+    });
+  }
+
+
+  //Weekday boxes 
+  var days = [];
+  var dows = [];
+  for (var i = -3; i <= 3; i++) {
+    var tempDate = new Date(year, month - 1, day + i);
+    days.push(tempDate.getDate());
+    dows.push(tempDate.getDay());
+  }
+
+  var dayWidth = g.getWidth() / 7;
+  var dayY = g.getHeight() - 20;
+  g.setFontAlign(0, 0);
+  g.setFont("8x16");
+
+  for (var j = 0; j < days.length; j++) {
+    var dayX = j * dayWidth + dayWidth / 2 + 1;
+    if (days[j] === day) {
+      g.setColor('#80FF00'); //Green for current day
+    } else if (dows[j] === 0 || dows[j] === 6) {
+      g.setColor('#FF8000'); // Orange for weekend days (Saturday and Sunday)
+    } else {
+      g.setColor(g.theme.bg); // White for other days
+    }
+    g.fillRect(
+      dayX - dayWidth / 2 - 1,
+      dayY - 16 / 2 - 1,
+      dayX + dayWidth / 2 - 1,
+      dayY + 16 / 2 - 1
+    );
+    g.setColor(g.theme.fg);
+    g.drawRect(
+      dayX - dayWidth / 2 - 1,
+      dayY - 16 / 2 - 1,
+      dayX + dayWidth / 2 - 1,
+      dayY + 16 / 2 - 1
+    );
+    g.drawRect(
+      dayX - dayWidth / 2 - 1,
+      dayY - 48 / 2 - 1,
+      dayX + dayWidth / 2 - 1,
+      dayY - 16 / 2 - 1
+    );
+    g.drawImage(jpchar[dows[j]], dayX - 5, dayY - 22);
+    g.drawString(days[j], dayX, dayY);
+  }
   queueDraw();
 }
 
