@@ -21,10 +21,6 @@ const BG_COLOR = [1, 1, 1];
 // Store active ripples: each has {x, y, radius, birthTime}
 var ripples = [];
 
-// Animation handle and frame timer
-var animInterval = null;
-var lastTime = getTime();
-
 // Create a new ripple at the touch position
 function createRipple(x, y) {
   ripples.push({
@@ -99,10 +95,3 @@ function animate() {
 Bangle.on('touch', function(button, xy) {
     createRipple(xy.x, xy.y);
 });
-
-// Start the animation
-animInterval = setInterval(animate, 1000/FRAME_RATE);
-
-// -------------------------------------------------
-// If you need to stop the animation later:
-// clearInterval(animInterval);
