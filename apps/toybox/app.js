@@ -95,3 +95,6 @@ function animate() {
 Bangle.on('touch', function(button, xy) {
     createRipple(xy.x, xy.y);
 });
+
+// Start the animation
+setInterval(animate, 1000/FRAME_RATE);
