@@ -6,8 +6,8 @@
   "description": "A collection of simple toys and demos, to entertain my daugher (who likes to play with my watch and change all kinds of settings)",
   "icon": "app.png",
   "screenshots": [{"url":"screenshot.png"}],
-  "type": "game",
-  "tags": "game",
+  "type": "app",
+  "tags": "app",
   "supports": ["BANGLEJS2"],
   "allow_emulator": true,
   "storage": [
