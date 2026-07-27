@@ -19,7 +19,7 @@
             "name": "toybox.img",
             "url": "app-icon.js",
             "evaluate": true
-        },
+        }
     ],
     "data": [{"name":"toybox.json"}]
 }
