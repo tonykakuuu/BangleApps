@@ -1,7 +1,26 @@
 let interval;
 let rxBuffer = ""; // accumulates incoming chunks
+let queue = [];
+let sending = false;
 
-NRF.setAdvertising({}, { connectable: true });
+function queueSend(msg) {
+  queue.push(msg);
+  sendNext();
+}
+
+function sendNext() {
+  if (sending) return;
+  if (!queue.length) return;
+
+  sending = true;
+
+  Bluetooth.write(queue.shift());
+
+  setTimeout(function() {
+    sending = false;
+    sendNext();
+  },40);
+}
 
 exports.sendSystemData = function () {
   let data = {
@@ -47,9 +66,7 @@ function updateWeatherData(d) {
 
 function sendData(dataString, forceSend) {
   if (global.phoneConnected || forceSend) {
-    setTimeout(function () {
-      Bluetooth.write(dataString + "\n");
-    }, 500);
+      queueSend("bwRX:"+dataString+"\n");
   } else {
     print("Phone not connected");
   }
@@ -76,6 +93,10 @@ function sendRawHealthData(data) {
     sendableData.movement = data.movement;
     sendableData.state = data.movement <= 150 ? "sedentary" : "moving";
   }
+  if (global.calories) {
+    sendableData.activeCalories = global.calories.activeCaloriesBurned || 0;
+    sendableData.bmrCalories = global.calories.bmrCaloriesBurned || 0;
+  }
   if (data.bpmConfidence && data.bpm) {
     if (data.bpmConfidence > 75 && data.bpm != 0) sendableData.hr = data.bpm;
     sendableData.confidence = data.bpmConfidence;
@@ -101,7 +122,7 @@ function onConnect() {
 function processMessage(raw) {
   raw = raw.trim();
   print("Processing complete message:", raw.length, "chars");
-
+  Bangle.emit("BlueWatchMessage", raw);
   let obj;
   try {
     obj = JSON.parse(raw);
@@ -146,8 +167,11 @@ function processMessage(raw) {
 
   if (obj) {
     switch (obj.id) {
-      case "WeatherUpdate":
+      case "Weather":
         updateWeatherData(obj);
+        break;
+      case "GPS":
+        Bangle.emit("GPS", obj);
         break;
     }
   } 
@@ -159,7 +183,6 @@ function messageReceived(data) {
     data = String(data);
   }
   rxBuffer += data;
-
   // 2. Check if the delimiter exists
   let idx = rxBuffer.indexOf("|");
 

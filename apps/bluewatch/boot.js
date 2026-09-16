@@ -1,4 +1,3 @@
-NRF.setAdvertising({}, { connectable: true });
 
 var blueWatch = require("bluewatch");
 var settings = require("Storage").readJSON("bluewatch.settings.json") || {
@@ -14,19 +13,25 @@ let appsUsingGPS = savedData.appsUsingGPS || [];
 global.phoneConnected = savedData.phoneConnected;
 
 function updateWeatherAndLocation() {
-  blueWatch.sendData("Request Location");
+  blueWatch.sendData("Request Location",true);
   setTimeout(function () {
-    blueWatch.sendData("Request Weather");
+    blueWatch.sendData("Request Weather",true);
   }, 60 * 10);
 }
 function setUpdateIntervals() {
+  if (weatherLocInterval)
+    clearInterval(weatherLocInterval);
+
+  if (systemDataInterval)
+    clearInterval(systemDataInterval);
+
   weatherLocInterval = setInterval(updateWeatherAndLocation, 10 * 60 * 1000);
-  systemDataInterval = setInterval(blueWatch.sendSystemData, 60 * 1000);
+  systemDataInterval = setInterval(blueWatch.sendSystemData, 6 * 60 * 1000); // 6 mins
 }
+
 Bangle.on("BlueWatchConnected", function () {
   blueWatch.sendSystemData();
   updateWeatherAndLocation();
-  blueWatch.sendHealthData();
   setUpdateIntervals();
 });
 if (global.phoneConnected) {
@@ -94,7 +99,9 @@ function setMyLocation(d) {
   numFields.forEach((field) => {
     if (locationJson[field] != null) locationJson[field] = +locationJson[field];
   });
-
+  let myLocationSaved = require("Storage").readJSON("mylocation.json", true) || {}
+  
+  
   //load mylocation file
   let myLocationJson = Object.assign(
     {
@@ -105,12 +112,14 @@ function setMyLocation(d) {
     require("Storage").readJSON("mylocation.json", true) || {}
   );
   //remove notification from phone
-  if (
-    Math.abs(myLocationJson.lat - locationJson.lat) < 0.0001 &&
-    Math.abs(myLocationJson.lon - locationJson.lon) < 0.0001
-  ) {
-    //same location, do not write
-    return;
+  if(myLocationSaved.lat){
+    if (
+      Math.abs(myLocationJson.lat - locationJson.lat) < 0.0001 &&
+      Math.abs(myLocationJson.lon - locationJson.lon) < 0.0001
+    ) {
+      //same location, do not write
+      return;
+    }
   }
 
   myLocationJson.lon = locationJson.lon;
@@ -126,6 +135,5 @@ function saveData() {
 }
 
 E.on("kill", function () {
-  //save cals counted
   saveData();
 });
